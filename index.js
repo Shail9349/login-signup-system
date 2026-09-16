@@ -7,7 +7,6 @@ const flash = require("connect-flash");
 const express = require("express");
 const session = require("express-session");
 const authRoutes = require("./routes/authRoutes");
-const transporter = require("./config/mailer");
 const crypto = require("crypto");
 const db = require("./db");
 
