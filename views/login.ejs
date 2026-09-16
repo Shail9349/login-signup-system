@@ -1,0 +1,149 @@
+<%- include("partials/header", { title: "Login" }) %>
+
+<div class="row justify-content-center mt-5">
+
+    <div class="col-md-5">
+
+        <div class="card shadow-lg border-0 rounded-4">
+
+            <div class="card-body p-4 p-md-5">
+
+                <h2 class="text-center fw-bold mb-2">
+                    Login
+                </h2>
+
+                <p class="text-center text-muted mb-4">
+                    Enter your details to continue
+                </p>
+
+                <form action="/login" method="POST">
+                    <%- include("partials/csrf") %>
+
+                    <div class="mb-4">
+
+                        <label class="form-label fw-semibold">
+                            Email
+                        </label>
+
+                        <input
+                            type="email"
+                            name="email"
+                            class="form-control rounded-3 py-2"
+                            placeholder="Enter Email"
+                            autocomplete="email"
+                            value="<%= email || '' %>"
+                            required
+                        >
+
+                    </div>
+
+                    <div class="mb-4">
+
+                        <label class="form-label fw-semibold">
+                            Password
+                        </label>
+
+                        <div class="input-group">
+                        <input
+                            type="password"
+                            name="password"
+                            id="password"
+                            class="form-control rounded-start-3 py-2"
+                            placeholder="Enter Password"
+                            autocomplete="current-password"
+                            required
+                        >
+
+                        <button
+                            type="button"
+                            class="btn btn-outline-secondary"
+                            id="togglePassword"
+                            aria-label="Show password">
+
+                            <i
+                                class="bi bi-eye"
+                                id="togglePasswordIcon">
+                            </i>
+
+                        </button>
+                    </div>
+
+                    </div>
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary w-100 py-2 rounded-3 fw-semibold">
+
+                        Login
+
+                    </button>
+
+                </form>
+
+                <div class="text-center mt-3">
+
+                    <a
+                        href="/forgot-password"
+                        class="text-decoration-none">
+                        Forgot Password?
+                    </a>
+
+                    <p class="text-muted mt-3 mb-0">
+                        Don't have an account?
+                        <a
+                            href="/signup"
+                            class="text-decoration-none fw-semibold">
+                            Sign Up
+                        </a>
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+    const togglePassword = document.getElementById("togglePassword");
+    const password = document.getElementById("password");
+    const togglePasswordIcon = document.getElementById("togglePasswordIcon");
+
+    togglePassword.addEventListener("click", function () {
+
+        if (password.type === "password") {
+
+            password.type = "text";
+
+            togglePasswordIcon.classList.remove("bi-eye");
+            togglePasswordIcon.classList.add("bi-eye-slash");
+
+            togglePassword.setAttribute(
+                "aria-label",
+                "Hide password"
+            );
+
+        } else {
+
+            password.type = "password";
+
+            togglePasswordIcon.classList.remove("bi-eye-slash");
+            togglePasswordIcon.classList.add("bi-eye");
+
+            togglePassword.setAttribute(
+                "aria-label",
+                "Show password"
+            );
+
+        }
+
+    });
+
+
+</script>
+
+<%- include("partials/footer") %>

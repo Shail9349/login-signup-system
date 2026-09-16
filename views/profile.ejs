@@ -1,0 +1,114 @@
+<%- include("partials/header", { title: "My Profile" }) %>
+
+    <h2>My Profile</h2>
+
+    <hr>
+
+    <!-- Update Profile Form -->
+    <form action="/profile" method="POST">
+        <%- include("partials/csrf") %>
+
+        <label>Name</label>
+        <br>
+
+        <input
+            type="text"
+            name="name"
+            value="<%= user.name %>"
+        >
+
+        <br><br>
+
+        <label>Email</label>
+        <br>
+
+        <input
+            type="email"
+            name="email"
+            value="<%= user.email %>"
+        >
+
+        <br><br>
+
+        <button type="submit">
+            Update Profile
+        </button>
+
+    </form>
+
+    <hr>
+
+    <!-- Change Password Form -->
+    <h2>Change Password</h2>
+
+    <form action="/change-password" method="POST">
+        <%- include("partials/csrf") %>
+
+        <label>Current Password</label>
+        <br>
+
+        <input
+            type="password"
+            name="currentPassword"
+            required
+        >
+
+        <br><br>
+
+        <label>New Password</label>
+        <br>
+
+        <input
+            type="password"
+            name="newPassword"
+            required
+        >
+
+        <br><br>
+
+        <label>Confirm Password</label>
+        <br>
+
+        <input
+            type="password"
+            name="confirmPassword"
+            required
+        >
+
+        <br><br>
+
+        <button type="submit">
+            Change Password
+        </button>
+
+    </form>
+
+    <hr>
+
+<h2>Delete Account</h2>
+
+<form action="/delete-account" method="POST">
+    <%- include("partials/csrf") %>
+
+    <button
+        type="submit"
+        onclick="return confirm('Are you sure you want to delete your account?')"
+    >
+        Delete My Account
+    </button>
+
+</form>
+
+    <br>
+
+    <form action="/logout" method="POST">
+
+        <%- include("partials/csrf") %>
+
+        <button type="submit">
+            Logout
+        </button>
+
+    </form>
+
+<%- include("partials/footer") %>

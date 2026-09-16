@@ -1,0 +1,81 @@
+<%- include("partials/header", { title: "Verify OTP" }) %>
+
+    <h2>Verify OTP</h2>
+
+    <form action="/verify-otp" method="POST">
+        <%- include("partials/csrf") %>
+
+        <label>Enter OTP</label>
+
+        <br>
+
+        <input
+            type="text"
+            name="otp"
+            required
+        >
+
+        <br><br>
+
+        <button type="submit">
+            Verify OTP
+        </button>
+
+    </form>
+
+    <br>
+
+    <div class="text-center mt-3">
+
+        <form action="/resend-otp" method="POST" class="d-inline">
+
+            <%- include("partials/csrf") %>
+
+            <button
+                type="submit"
+                id="resendButton"
+                class="btn btn-link p-0"
+                disabled>
+                Resend OTP in <span id="countdown"><%= resendRemaining %></span>
+            </button>
+
+        </form>
+
+    </div>
+
+    <script>
+
+        let remaining = Number("<%= resendRemaining %>");
+
+        const countdown = document.getElementById("countdown");
+        const resendButton = document.getElementById("resendButton");
+
+        if (remaining <= 0) {
+
+            resendButton.disabled = false;
+            resendButton.textContent = "Resend OTP";
+
+        } else {
+
+            const timer = setInterval(() => {
+
+                remaining--;
+
+                countdown.textContent = remaining;
+
+                if (remaining <= 0) {
+
+                    clearInterval(timer);
+
+                    resendButton.disabled = false;
+                    resendButton.textContent = "Resend OTP";
+
+                }
+
+            }, 1000);
+
+        }
+
+    </script>
+
+<%- include("partials/footer") %>

@@ -1,0 +1,352 @@
+<%- include("partials/header", { title: "Signup" }) %>
+
+<div class="row justify-content-center mt-5">
+
+    <div class="col-md-5">
+
+        <div class="card shadow-lg border-0 rounded-4">
+
+            <div class="card-body p-4 p-md-5">
+
+                <h2 class="text-center fw-bold mb-2">
+                    Signup
+                </h2>
+
+                <p class="text-center text-muted mb-4">
+                    Create your account to get started
+                </p>
+
+                <form action="/signup" method="POST">
+                    <%- include("partials/csrf") %>
+
+                    <div class="mb-4">
+
+                        <label class="form-label fw-semibold">
+                            Name
+                        </label>
+
+                        <input
+                            type="text"
+                            name="name"
+                            id="name"
+                            class="form-control rounded-3 py-2"
+                            placeholder="Enter Name"
+                            autocomplete="name"
+                            minlength="2"
+                            maxlength="25"
+                            required
+                        >
+
+                        <p
+                            id="nameError"
+                            class="text-danger small mt-1 mb-0 d-none">
+                            Name must be 2–25 characters and contain letters and spaces only.
+                        </p>
+
+                    </div>
+
+                    <div class="mb-4">
+
+                        <label class="form-label fw-semibold">
+                            Email
+                        </label>
+
+                        <input
+                        type="email"
+                        name="email"
+                        id="email"
+                        class="form-control rounded-3 py-2"
+                        placeholder="Enter Email"
+                        autocomplete="email"
+                        maxlength="50"
+                        required
+                        >
+
+                        <p
+                            id="emailError"
+                            class="text-danger small mt-1 mb-0 d-none">
+                            Please enter a valid email address.
+                        </p>
+
+                    </div>
+
+                    <div class="mb-4">
+
+                        <label class="form-label fw-semibold">
+                            Password
+                        </label>
+
+                        <div class="input-group">
+
+                            <input
+                                type="password"
+                                name="password"
+                                id="password"
+                                class="form-control rounded-start-3 py-2"
+                                placeholder="Enter Password"
+                                autocomplete="new-password"
+                                minlength="8"
+                                maxlength="64"
+                                required
+                            >
+
+                            <button
+                                type="button"
+                                class="btn btn-outline-secondary"
+                                id="togglePassword"
+                                aria-label="Show password">
+
+                                <i
+                                    class="bi bi-eye"
+                                    id="togglePasswordIcon">
+                                </i>
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                    <p
+                        id="passwordHint"
+                        class="text-danger small mt-1 mb-0 d-none">
+                        Password must be at least 8 characters with at least 1 uppercase (A-Z),
+                        1 lowercase (a-z), 1 number and 1 special character (e.g. #?!@&).
+                    </p>
+
+                    <div class="mb-4">
+
+                        <label class="form-label fw-semibold">
+                            Confirm Password
+                        </label>
+
+                        <div class="input-group">
+
+                            <input
+                                type="password"
+                                name="confirmPassword"
+                                id="confirmPassword"
+                                class="form-control rounded-start-3 py-2"
+                                placeholder="Confirm Password"
+                                autocomplete="new-password"
+                                minlength="8"
+                                maxlength="64"
+                                required
+                            >
+
+                            <button
+                                type="button"
+                                class="btn btn-outline-secondary"
+                                id="toggleConfirmPassword"
+                                aria-label="Show password">
+
+                                <i
+                                    class="bi bi-eye"
+                                    id="toggleConfirmPasswordIcon">
+                                </i>
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                    <button
+                        type="submit"
+                        class="btn btn-success w-100 py-2 rounded-3 fw-semibold">
+
+                        Signup
+
+                    </button>
+
+                </form>
+
+                <div class="text-center mt-3">
+
+                    <p class="text-muted mb-0">
+
+                        Already have an account?
+
+                        <a
+                            href="/login"
+                            class="text-decoration-none fw-semibold">
+                            Login
+                        </a>
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+    const togglePassword = document.getElementById("togglePassword");
+    const password = document.getElementById("password");
+    const togglePasswordIcon = document.getElementById("togglePasswordIcon");
+
+    togglePassword.addEventListener("click", function () {
+
+        if (password.type === "password") {
+
+            password.type = "text";
+
+            togglePasswordIcon.classList.remove("bi-eye");
+            togglePasswordIcon.classList.add("bi-eye-slash");
+
+            togglePassword.setAttribute(
+                "aria-label",
+                "Hide password"
+            );
+
+        } else {
+
+            password.type = "password";
+
+            togglePasswordIcon.classList.remove("bi-eye-slash");
+            togglePasswordIcon.classList.add("bi-eye");
+
+            togglePassword.setAttribute(
+                "aria-label",
+                "Show password"
+            );
+
+        }
+
+    });
+    const toggleConfirmPassword =
+    document.getElementById("toggleConfirmPassword");
+
+const confirmPassword =
+    document.getElementById("confirmPassword");
+
+const toggleConfirmPasswordIcon =
+    document.getElementById("toggleConfirmPasswordIcon");
+
+toggleConfirmPassword.addEventListener("click", function () {
+
+    if (confirmPassword.type === "password") {
+
+        confirmPassword.type = "text";
+
+        toggleConfirmPasswordIcon.classList.remove("bi-eye");
+        toggleConfirmPasswordIcon.classList.add("bi-eye-slash");
+
+        toggleConfirmPassword.setAttribute(
+            "aria-label",
+            "Hide password"
+        );
+
+    } else {
+
+        confirmPassword.type = "password";
+
+        toggleConfirmPasswordIcon.classList.remove("bi-eye-slash");
+        toggleConfirmPasswordIcon.classList.add("bi-eye");
+
+        toggleConfirmPassword.setAttribute(
+            "aria-label",
+            "Show password"
+        );
+
+    }
+
+});
+
+const signupForm = document.querySelector("form");
+
+signupForm.addEventListener("submit", function (event) {
+
+    if (password.value !== confirmPassword.value) {
+
+        event.preventDefault();
+
+        alert("Passwords do not match");
+
+    }
+
+});
+
+const nameInput = document.getElementById("name");
+const passwordHint = document.getElementById("passwordHint");
+
+password.addEventListener("input", function () {
+
+    const passwordPattern =
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&.#])[A-Za-z\d@$!%*?&.#]{8,64}$/;
+
+    if (
+        password.value !== "" &&
+        !passwordPattern.test(password.value)
+    ) {
+
+        passwordHint.classList.remove("d-none");
+
+    } else {
+
+        passwordHint.classList.add("d-none");
+
+    }
+
+});
+const nameError = document.getElementById("nameError");
+
+nameInput.addEventListener("input", function () {
+
+    const namePattern = /^[A-Za-z ]+$/;
+
+if (
+    nameInput.value !== "" &&
+    (
+        !namePattern.test(nameInput.value) ||
+        nameInput.value.trim().length < 2 ||
+        nameInput.value.trim().length > 25
+    )
+) {
+
+    nameError.classList.remove("d-none");
+    nameInput.classList.add("is-invalid");
+
+} else {
+
+    nameError.classList.add("d-none");
+    nameInput.classList.remove("is-invalid");
+
+}
+
+});
+
+const emailInput = document.getElementById("email");
+const emailError = document.getElementById("emailError");
+
+emailInput.addEventListener("input", function () {
+
+    const emailPattern =
+        /^[^\s@]+@[^\s@]+\.[A-Za-z]{2,}$/;
+
+    if (
+        emailInput.value !== "" &&
+        !emailPattern.test(emailInput.value)
+    ) {
+
+        emailError.classList.remove("d-none");
+        emailInput.classList.add("is-invalid");
+
+    } else {
+
+        emailError.classList.add("d-none");
+        emailInput.classList.remove("is-invalid");
+
+    }
+
+});
+
+</script>
+
+<%- include("partials/footer") %>
