@@ -13,8 +13,8 @@ const db = require("./db");
 if (!process.env.SESSION_SECRET) {
     throw new Error("SESSION_SECRET is missing from .env");
 }
-if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
-    throw new Error("EMAIL_USER or EMAIL_PASS is missing from .env");
+if (!process.env.EMAIL_USER || !process.env.BREVO_API_KEY) {
+    throw new Error("EMAIL_USER or BREVO_API_KEY is missing from .env");
 }
 
 if (
@@ -90,18 +90,6 @@ app.use((req, res, next) => {
 });
 
 const PORT = process.env.PORT || 3000;
-
-db.getConnection((err, connection) => {
-    if (err) {
-        console.log("❌ Render → Aiven DB Connection Failed");
-        console.log(err.code);
-        console.log(err.message);
-        return;
-    }
-
-    console.log("✅ Render → Aiven DB Connected Successfully");
-    connection.release();
-});
 
 // ==============================
 // Routes
