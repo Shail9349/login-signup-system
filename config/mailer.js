@@ -1,36 +1,46 @@
-const nodemailer = require("nodemailer");
+const sendMail = async ({ to, subject, html, text }) => {
 
-const transporter = nodemailer.createTransport({
+    const response = await fetch("https://api.brevo.com/v3/smtp/email", {
+        method: "POST",
 
-    host: "smtp.gmail.com",
+        headers: {
+            "accept": "application/json",
+            "api-key": process.env.BREVO_API_KEY,
+            "content-type": "application/json"
+        },
 
-    family: 4,
+        body: JSON.stringify({
+            sender: {
+                name: "Velora Web Tech",
+                email: process.env.EMAIL_USER
+            },
 
-    port: 587,
+            to: [
+                {
+                    email: to
+                }
+            ],
 
-    secure: false,
+            subject: subject,
 
-    requireTLS: true,
+            htmlContent: html,
 
-    pool: true,
+            textContent: text
+        })
+    });
 
-    maxConnections: 1,
+    if (!response.ok) {
 
-    maxMessages: 10,
+        const errorBody = await response.text();
 
-    auth: {
+        throw new Error(
+            `Brevo API Error ${response.status}: ${errorBody}`
+        );
+    }
 
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS
+    return await response.json();
+};
 
-    },
-
-    connectionTimeout: 30000,
-
-    greetingTimeout: 30000,
-
-    socketTimeout: 30000,
-
-});
-
-module.exports = transporter;
+module.exports = {
+    sendMail
+};
