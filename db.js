@@ -20,16 +20,16 @@ const db = mysql.createPool({
     queueLimit: 0
 });
 
-db.getConnection((err, connection) => {
-    if (err) {
-        console.log("❌ Database Connection Failed");
-        console.log(err);
-        return;
-    }
+// db.getConnection((err, connection) => {
+//     if (err) {
+//         console.log("❌ Database Connection Failed");
+//         console.log(err);
+//         return;
+//     }
 
-    console.log("✅ Connected to MySQL Database");
-    connection.release();
-});
+//     console.log("✅ Connected to MySQL Database");
+//     connection.release();
+// });
 
 db.on("error", (err) => {
     console.log("❌ MySQL Pool Error");
