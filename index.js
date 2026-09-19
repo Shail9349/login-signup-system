@@ -91,6 +91,18 @@ app.use((req, res, next) => {
 
 const PORT = process.env.PORT || 3000;
 
+db.getConnection((err, connection) => {
+    if (err) {
+        console.log("❌ Render → Aiven DB Connection Failed");
+        console.log(err.code);
+        console.log(err.message);
+        return;
+    }
+
+    console.log("✅ Render → Aiven DB Connected Successfully");
+    connection.release();
+});
+
 // ==============================
 // Routes
 // ==============================
